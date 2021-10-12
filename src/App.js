@@ -1,30 +1,22 @@
-import { useState, useEffect } from "react";
+import { useRef } from "react";
 
-const useContador = (inicial) => {
-  const [contador, setContador] = useState(inicial);
-  const incrementar = () => {
-    setContador(contador+1);
+const App = () =>{
+  const ref = useRef();
+  const inputRef = useRef();
+  const click = () =>{
+    console.log(ref.current.innerHTML = 'lele');
   }
 
-  return [contador, incrementar];
-}
+  const focus = () => {
+    inputRef.current.focus();
+  }
 
-const Interval = (contador) => {
-  useEffect(() => {
-    setInterval(()=>console.log(contador), 1000);
-  },[]);
-  return( <p>Intervalo</p>)
-}
-const App = () => {
-  const [contador, incrementar] = useContador(0);
-  useEffect(() => {
-    document.title = contador;
-  }, [contador]);
 
   return (
     <div>
-      Contador: { contador }
-      <button onClick={incrementar}> Incrementar  </button>
+      <input ref={inputRef} />
+      <button onClick={focus}>Focus</button>
+      <div onClick={click} ref={ref}>lala</div>
     </div>
   )
 }
